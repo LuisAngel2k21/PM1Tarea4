@@ -10,10 +10,8 @@ public class Empleados implements Serializable
     private String pathImage;
     private byte[] image;
 
-
     public Empleados()
     {
-        // Constructor Vacio
     }
 
     public Empleados(Integer id, String nombres, String descripcion, String pathImage, byte[] image) {
@@ -24,6 +22,7 @@ public class Empleados implements Serializable
         this.image = image;
 
     }
+
 
 //Get
     public Integer getId() {

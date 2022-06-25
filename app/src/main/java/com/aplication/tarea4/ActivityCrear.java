@@ -118,8 +118,6 @@ public class ActivityCrear extends AppCompatActivity {
         LimpiarPatalla();
     }
 
-
-//Limpiar Pantalla
     private void LimpiarPatalla()
     {
         nombres.setText("");
@@ -129,7 +127,6 @@ public class ActivityCrear extends AppCompatActivity {
 
     }
 
-//Permisos
     private void permisos()
     {
         if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) !=
