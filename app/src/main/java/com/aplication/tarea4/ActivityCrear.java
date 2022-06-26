@@ -39,13 +39,11 @@ public class ActivityCrear extends AppCompatActivity {
 
     EditText nombres, descripcion;
     Button btnGuardar,btnlistImagenes,btnTomarFoto;
-    Bitmap imagenGlobal;
-
-    ImageView ObjImagen;
-    String CurrentPhotoPath;
+    Bitmap imagenBit;
+    ImageView imagenV;
+    String FotoPath;
     static final int PETICION_ACCESO_CAM = 100;
     static final int TAKE_PIC_REQUEST = 101;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +51,7 @@ public class ActivityCrear extends AppCompatActivity {
 
         nombres = (EditText) findViewById(R.id.txtNombre);
         descripcion = (EditText) findViewById(R.id.txtDescripcion);
-        ObjImagen = (ImageView) findViewById(R.id.Foto);
-
+        imagenV = (ImageView) findViewById(R.id.Foto);
         btnGuardar = (Button) findViewById(R.id.btnASQLite);
         btnTomarFoto = (Button) findViewById(R.id.btnTomarFoto);
         btnlistImagenes = (Button) findViewById(R.id.btnList);
@@ -98,11 +95,11 @@ public class ActivityCrear extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(Transacciones.nombres, nombres.getText().toString());
         values.put(Transacciones.descripcion, descripcion.getText().toString());
-        values.put(Transacciones.pathImage, CurrentPhotoPath);
+        values.put(Transacciones.Imagen, FotoPath);
         
         ByteArrayOutputStream baos = new ByteArrayOutputStream(10480);
 
-        imagenGlobal.compress(Bitmap.CompressFormat.JPEG, 0 , baos);
+        imagenBit.compress(Bitmap.CompressFormat.JPEG, 0 , baos);
 
         byte[] blob = baos.toByteArray();
 
@@ -115,15 +112,15 @@ public class ActivityCrear extends AppCompatActivity {
 
         db.close();
 
-        LimpiarPatalla();
+        ScreenClean();
     }
 
-    private void LimpiarPatalla()
+    private void ScreenClean()
     {
         nombres.setText("");
         descripcion.setText("");
-        ObjImagen.setImageBitmap(null);
-        imagenGlobal = null;
+        imagenV.setImageBitmap(null);
+        imagenBit = null;
 
     }
 
@@ -136,42 +133,36 @@ public class ActivityCrear extends AppCompatActivity {
         }
         else
         {
-            dispatchTakePictureIntent();
+            TomarFoto();
         }
     }
 
-    //Para llenar en el almacenamiento
-    private File createImageFile() throws IOException {
-        // Create an image file name
+    private File CrearImagen() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
 
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpeg",         /* suffix */
-                storageDir      /* directory */
+                imageFileName,
+                ".jpeg",
+                storageDir
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
-        CurrentPhotoPath = image.getAbsolutePath();
+        FotoPath = image.getAbsolutePath();
         return image;
     }
 
-    private void dispatchTakePictureIntent() {
+    private void TomarFoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
+
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
             File photoFile = null;
 
             try {
-                photoFile = createImageFile();
+                photoFile = CrearImagen();
             } catch (IOException ex) {
-                // Error occurred while creating the File
                 ex.toString();
             }
-            // Continue only if the File was successfully created
             try {
                 if (photoFile != null) {
                     Uri photoURI = FileProvider.getUriForFile(this,
@@ -197,7 +188,7 @@ public class ActivityCrear extends AppCompatActivity {
         {
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
-                dispatchTakePictureIntent();
+                TomarFoto();
             }
         }
         else
@@ -205,7 +196,6 @@ public class ActivityCrear extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Se necesitan permisos de acceso a la camara", Toast.LENGTH_LONG).show();
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -214,11 +204,10 @@ public class ActivityCrear extends AppCompatActivity {
 
         if(requestCode == TAKE_PIC_REQUEST && resultCode == RESULT_OK)
         {
-            Bitmap image = BitmapFactory.decodeFile(CurrentPhotoPath);
-            imagenGlobal = image;
-            ObjImagen.setImageBitmap(image);
-
-            Toast.makeText(getApplicationContext(), "Registro de imagen exitoso en almacenamiento "
+            Bitmap image = BitmapFactory.decodeFile(FotoPath);
+            imagenBit = image;
+            imagenV.setImageBitmap(image);
+            Toast.makeText(getApplicationContext(), "Se a Registrado la Imagen"
                     ,Toast.LENGTH_LONG).show();
         }
     }

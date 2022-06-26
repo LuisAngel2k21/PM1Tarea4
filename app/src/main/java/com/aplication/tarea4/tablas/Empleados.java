@@ -7,18 +7,18 @@ public class Empleados implements Serializable
     private Integer id;
     private String nombres;
     private String descripcion;
-    private String pathImage;
+    private String Imagen;
     private byte[] image;
 
     public Empleados()
     {
     }
 
-    public Empleados(Integer id, String nombres, String descripcion, String pathImage, byte[] image) {
+    public Empleados(Integer id, String nombres, String descripcion, String Imagen, byte[] image) {
         this.id = id;
         this.nombres = nombres;
         this.descripcion = descripcion;
-        this.pathImage = pathImage;
+        this.Imagen = Imagen;
         this.image = image;
 
     }
@@ -52,11 +52,11 @@ public class Empleados implements Serializable
 
 //Get Set Foto
     public String getPathImage() {
-    return pathImage;
+    return Imagen;
 }
 
-    public void setPathImage(String pathImage) {
-        this.pathImage = pathImage;
+    public void setPathImage(String Imagen) {
+        this.Imagen = Imagen;
     }
 
     public byte[] getImage() {

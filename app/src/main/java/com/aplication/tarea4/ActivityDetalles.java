@@ -13,38 +13,41 @@ import com.aplication.tarea4.tablas.Empleados;
 import java.io.ByteArrayInputStream;
 
 public class ActivityDetalles extends AppCompatActivity {
-    ImageView imageViewMostrarIMG;
 
-    EditText Nombre, Descripcion;
+    EditText MostrarNombre, MostrarDescripcion;
+    ImageView MostrarImagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles);
 
 
-        imageViewMostrarIMG = (ImageView) findViewById(R.id.IMGVMostrarFotoP);
-        Nombre = (EditText) findViewById(R.id.txtMostNombre);
-        Descripcion = (EditText) findViewById(R.id.txtMostDescripcion);
-        Bundle objetEnvia = getIntent().getExtras();
-        Empleados imagen = null;
+        MostrarNombre = (EditText) findViewById(R.id.txtnombre);
+        MostrarImagen = (ImageView) findViewById(R.id.MostrarFotoIMG);
 
+        MostrarDescripcion = (EditText) findViewById(R.id.txtdescripcion);
+        Bundle objetEnvia = getIntent().getExtras();
+
+
+        Empleados imagen = null;
         if(objetEnvia != null){
             imagen = (Empleados) objetEnvia.getSerializable("empleados");
 
-            Nombre.setText(imagen.getNombres());
-            Descripcion.setText(imagen.getDescripcion());
+            MostrarNombre.setText(imagen.getNombres());
+            MostrarDescripcion.setText(imagen.getDescripcion());
+
             mostrarImagen(imagen.getImage());
             Bitmap image = BitmapFactory.decodeFile(imagen.getPathImage());
-            imageViewMostrarIMG.setImageBitmap(image);
+
+            MostrarImagen.setImageBitmap(image);
         }
 
     }
-
     private void mostrarImagen(byte[] image) {
         Bitmap bitmap = null;
         ByteArrayInputStream bais = new ByteArrayInputStream(image);
         bitmap = BitmapFactory.decodeStream(bais);
-        imageViewMostrarIMG.setImageBitmap(bitmap);
+        MostrarImagen.setImageBitmap(bitmap);
     }
 
 }

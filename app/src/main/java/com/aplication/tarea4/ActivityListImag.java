@@ -19,10 +19,12 @@ import java.util.ArrayList;
 
 public class ActivityListImag extends AppCompatActivity {
     SQLiteConexion conexion;
-    ListView lista;
-    ArrayList<Empleados> listaempleados;
-    ArrayList<String> ArregloEmpleados;
+    ListView listaLV;
 
+
+
+    ArrayList<String> ArregloImagenes;
+    ArrayList<Empleados> ListaImagenes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +32,12 @@ public class ActivityListImag extends AppCompatActivity {
         setContentView(R.layout.activity_list_imag);
 
         conexion  = new SQLiteConexion(this, Transacciones.NameDatabase, null, 1);
-        lista = (ListView) findViewById(R.id.lstContactos);
+        listaLV = (ListView) findViewById(R.id.lstContactos);
         ObtenerLista();
-        ArrayAdapter adp = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ArregloEmpleados);
-        lista.setAdapter(adp);
+        ArrayAdapter adp = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ArregloImagenes);
+        listaLV.setAdapter(adp);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listaLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mostrarImagen(i);
@@ -47,7 +49,7 @@ public class ActivityListImag extends AppCompatActivity {
     {
         SQLiteDatabase db = conexion.getReadableDatabase();
         Empleados list_emple = null;
-        listaempleados = new ArrayList<Empleados>();
+        ListaImagenes = new ArrayList<Empleados>();
 
         Cursor cursor = db.rawQuery(Transacciones.SELECT_ALL_TABLE_PICTURE,null);
 
@@ -61,7 +63,7 @@ public class ActivityListImag extends AppCompatActivity {
             list_emple.setPathImage(cursor.getString(3));
             list_emple.setImage(cursor.getBlob(4));
 
-            listaempleados.add(list_emple);
+            ListaImagenes.add(list_emple);
         }
 
         cursor.close();
@@ -69,7 +71,7 @@ public class ActivityListImag extends AppCompatActivity {
     }
     private void mostrarImagen(int i){
 
-        Empleados empleados = listaempleados.get(i);
+        Empleados empleados = ListaImagenes.get(i);
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("empleados", empleados);
@@ -83,13 +85,13 @@ public class ActivityListImag extends AppCompatActivity {
 
     private void llenarlista()
     {
-        ArregloEmpleados = new ArrayList<String>();
+        ArregloImagenes = new ArrayList<String>();
 
-        for(int i=0; i<listaempleados.size(); i++)
+        for(int i=0; i<ListaImagenes.size(); i++)
         {
-            ArregloEmpleados.add(listaempleados.get(i).getId() +" | "+
-                    listaempleados.get(i).getNombres() +" | "+
-                    listaempleados.get(i).getDescripcion());
+            ArregloImagenes.add(ListaImagenes.get(i).getId() +" | "+
+                    ListaImagenes.get(i).getNombres() +" | "+
+                    ListaImagenes.get(i).getDescripcion());
         }
 
     }

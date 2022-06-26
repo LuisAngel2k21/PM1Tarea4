@@ -7,12 +7,12 @@
     tools:context=".ActivityDetalles">
 
     <ScrollView
-        android:layout_width="372dp"
-        android:layout_height="597dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="367dp"
+        android:layout_height="664dp"
+        android:layout_marginTop="32dp"
         android:background="#94FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="23dp">
+        tools:layout_editor_absoluteX="22dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,10 +24,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="30dp"
-                android:text="Detalle del Registro"
+                android:text="Mostrar En Pantalla"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:text="Imagen:"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/MostrarFotoIMG"
+                android:layout_width="345dp"
+                android:layout_height="211dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="20dp"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -40,7 +60,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/txtMostNombre"
+                android:id="@+id/txtnombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
@@ -58,7 +78,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/txtMostDescripcion"
+                android:id="@+id/txtdescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
@@ -66,26 +86,6 @@
                 android:inputType="text"
                 android:textColor="#000000" />
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:text="IMAGEN"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <ImageView
-                android:id="@+id/IMGVMostrarFotoP"
-                android:layout_width="345dp"
-                android:layout_height="211dp"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginBottom="20dp"
-                tools:srcCompat="@tools:sample/avatars" />
 
         </LinearLayout>
 
